@@ -6,10 +6,10 @@ import menjacnica.Kurs;
 
 public interface MenjacnicaInterfejs {
 	
-	public void dodajKurs(Kurs k);
+	public void dodajKurs(String valuta, Kurs k);
 	
-	public void obrisiKurs(Kurs k);
+	public void obrisiKurs(String valuta, Kurs k);
 	
-	public Kurs pronadjiKurs(GregorianCalendar datum);
+	public Kurs pronadjiKurs(String valuta, GregorianCalendar datum);
 
 }
