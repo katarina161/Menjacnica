@@ -9,28 +9,44 @@ import menjacnica.interfejs.MenjacnicaInterfejs;
 public class Menjacnica implements MenjacnicaInterfejs {
 	
 	private List<Valuta> valute = new ArrayList<Valuta>();
+	
+	public List<Valuta> getValute() {
+		return valute;
+	}
 
 	@Override
 	public void dodajKurs(String valuta, Kurs k) {
-		for(int i = 0; i < valute.size(); i++) {
-			if(valute.get(i).getNazivValute().equals(valuta)) {
-				for(int j = 0; j < valute.get(i).getKursevi().size(); j++) {
-					if(valute.get(i).getKursevi().get(j).equals(k))
-						valute.get(i).getKursevi().remove(j);
-				}
-			}
-		}
+		if(k == null || valuta == null)
+			throw new RuntimeException("Valuta ili kurs ne mogu biti null");
+		
+		for(Valuta v: valute)
+			if(v.getOznakaValute().equals(valuta))
+				v.getKursevi().add(k);
 	}
 
 	@Override
 	public void obrisiKurs(String valuta, Kurs k) {
-		// TODO Auto-generated method stub
-
+		if(k == null || valuta == null)
+			throw new RuntimeException("Valuta ili kurs ne mogu biti null");
+		
+		for(Valuta v: valute)
+			if(v.getOznakaValute().equals(valuta))
+				v.getKursevi().remove(k);
 	}
 
 	@Override
 	public Kurs pronadjiKurs(String valuta, GregorianCalendar datum) {
-		// TODO Auto-generated method stub
+		if(datum == null || valuta == null)
+			throw new RuntimeException("Datum ili kurs ne mogu biti null");
+		
+		for(Valuta v: valute) {
+			if(v.getOznakaValute().equals(valuta)) {
+				for(Kurs k: v.getKursevi())
+					if(k.getDatum().equals(datum))
+						return k;
+			}
+		}
+		
 		return null;
 	}
 
